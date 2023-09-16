@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:learningbloc/Presentation%20Layer/Modules/home.dart';
 
-import 'Business Logic Layer/bloc/internet_bloc.dart';
+import 'Business Logic Layer/internet_cubit.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: BlocProvider(
-        create: (context) => InternetBloc(),
+        create: (context) => InternetCubit()..checkConnectivity(),
         child: Home(),
       ),
     );

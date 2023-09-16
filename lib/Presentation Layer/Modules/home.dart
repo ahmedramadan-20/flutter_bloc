@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../Business Logic Layer/internet_cubit.dart';
+import '../../Business Logic Layer/bloc/app_theme_bloc.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -16,28 +16,44 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: BlocBuilder<InternetCubit, InternetState>(
-          builder: (context, state) {
-            if (state is ConnectedState) {
-              internet = state.internetState;
-              return Center(
-                child: Text(internet),
-              );
-            } else if (state is NotConnectedState) {
-              internet = state.internetState;
-              return Center(
-                child: Text(internet),
-              );
-            }
-            return Center(
-              child: Text(internet),
-            );
-          },
-        ),
-      ),
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  BlocProvider.of<AppThemeBloc>(context).add(DarkThemeEvent());
+                },
+                child: Text(
+                  'Dark Theme',
+                  // style: TextStyle(color: Colors.white),
+                ),
+                // style: ElevatedButton.styleFrom(
+                //   backgroundColor: Colors.blue,
+                //   foregroundColor: Colors.redAccent,
+                // ),
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  BlocProvider.of<AppThemeBloc>(context).add(LightThemeEvent());
+                },
+                child: Text(
+                  'Light Theme',
+                  // style: TextStyle(color: Colors.white),
+                ),
+                // style: ElevatedButton.styleFrom(
+                //   backgroundColor: Colors.blue,
+                //   foregroundColor: Colors.redAccent,
+                // ),
+              ),
+            ],
+          )),
     );
   }
 }

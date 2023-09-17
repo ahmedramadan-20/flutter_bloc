@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../Business Logic Layer/bloc/app_theme_bloc.dart';
+import 'package:learningbloc/Business%20Logic%20Layer/cubit/theme_cubit.dart';
+import 'package:learningbloc/Data%20Layer/Models/Enums/theme_state.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -25,7 +25,8 @@ class _HomeState extends State<Home> {
             children: [
               ElevatedButton(
                 onPressed: () {
-                  BlocProvider.of<AppThemeBloc>(context).add(DarkThemeEvent());
+                  BlocProvider.of<AppThemeCubit>(context).changeTheme(ThemeState.dark);
+
                 },
                 child: Text(
                   'Dark Theme',
@@ -41,7 +42,8 @@ class _HomeState extends State<Home> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  BlocProvider.of<AppThemeBloc>(context).add(LightThemeEvent());
+                  BlocProvider.of<AppThemeCubit>(context).changeTheme(ThemeState.light);
+
                 },
                 child: Text(
                   'Light Theme',

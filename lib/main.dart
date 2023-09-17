@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:learningbloc/Data%20Layer/Models/Enums/theme_state.dart';
 import 'package:learningbloc/Helpers/constants.dart';
 import 'package:learningbloc/Presentation%20Layer/Modules/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'Business Logic Layer/bloc/app_theme_bloc.dart';
+import 'Business Logic Layer/cubit/theme_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,10 +20,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AppThemeBloc()..add(InitialEvent()),
-      child: BlocBuilder<AppThemeBloc, AppThemeState>(
+      create: (context) => AppThemeCubit()..changeTheme(ThemeState.initial),
+      child: BlocBuilder<AppThemeCubit, AppThemeState>(
         builder: (context, state) {
-          if(state is AppLightThemeState){
+          if(state is LightTheme){
             return MaterialApp(
               debugShowCheckedModeBanner: false,
               theme: ThemeData.light(
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
               ),
               home: Home(),
             );
-          }else if(state is AppDarkThemeState){
+          }else  if(state is DarkTheme){
             return MaterialApp(
               debugShowCheckedModeBanner: false,
               theme: ThemeData.dark(
@@ -38,7 +39,6 @@ class MyApp extends StatelessWidget {
               ),
               home: Home(),
             );
-
           }
           return MaterialApp(
             debugShowCheckedModeBanner: false,
